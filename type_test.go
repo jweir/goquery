@@ -4,6 +4,7 @@ import (
 	"code.google.com/p/go.net/html"
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -98,4 +99,10 @@ func TestNewDocument(t *testing.T) {
 			doc = NewDocumentFromNode(node)
 		}
 	}
+}
+
+func TestNew(t *testing.T) {
+	html := "<body><h1>Hello</h1></body>"
+	doc := New(strings.NewReader(html))
+	AssertLength(t, doc.Find("h1").Nodes, 1)
 }

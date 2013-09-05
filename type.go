@@ -2,6 +2,7 @@ package goquery
 
 import (
 	"code.google.com/p/go.net/html"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -15,6 +16,19 @@ type Document struct {
 	*Selection
 	Url      *url.URL
 	rootNode *html.Node
+}
+
+// Creates a new Document from any Reader
+func New(src io.Reader) (d *Document) {
+	// Parse the HTML into nodes
+	root, e := html.Parse(src)
+	if e != nil {
+		return
+	}
+
+	// Create and fill the document
+	d = newDocument(root, nil)
+	return
 }
 
 // NewDocumentFromNode() is a Document constructor that takes a root html Node
