@@ -103,6 +103,6 @@ func TestNewDocument(t *testing.T) {
 
 func TestNew(t *testing.T) {
 	html := "<body><h1>Hello</h1></body>"
-	doc := New(strings.NewReader(html))
+	doc, _ := New(strings.NewReader(html))
 	AssertLength(t, doc.Find("h1").Nodes, 1)
 }

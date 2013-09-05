@@ -19,16 +19,16 @@ type Document struct {
 }
 
 // Creates a new Document from any Reader
-func New(src io.Reader) (d *Document) {
+func New(src io.Reader) (*Document, error) {
 	// Parse the HTML into nodes
 	root, e := html.Parse(src)
 	if e != nil {
-		return
+		return nil, e
 	}
 
 	// Create and fill the document
-	d = newDocument(root, nil)
-	return
+	d := newDocument(root, nil)
+	return d, nil
 }
 
 // NewDocumentFromNode() is a Document constructor that takes a root html Node
